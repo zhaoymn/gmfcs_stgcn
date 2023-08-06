@@ -199,10 +199,6 @@ for epoch in range(num_epochs):
         torch.save(model.state_dict(), 'model_weights.pth')
         print('model saved!')
 
-    print(
-        f'Epoch {epoch + 1}/{num_epochs} - Test Loss: {test_loss:.4f}, Test Accuracy: {test_accuracy:.2f}%')
-
-
     # Log the metrics using the SummaryWriter object
     writer.add_scalar('Loss/train', epoch_loss, epoch)
     writer.add_scalar('Accuracy/train', train_accuracy, epoch)
