@@ -1,5 +1,4 @@
 
-# from torch.utils.tensorboard import SummaryWriter
 import torch.optim.lr_scheduler as lr_scheduler
 from tqdm import tqdm
 import torch.nn.functional as F
@@ -44,11 +43,11 @@ class STGCN_Classifier(nn.Module):
 
 batch_size = 128
 sample_folder = 'samples dir here'
-train_dataset = DataSet_Classification('train_dataset14.npy',
+train_dataset = DataSet_Classification(os.path.join(script_dir, 'train_dataset14.npy'),
                         sample_folder, data_augmentation=False)
 train_dataloader = DataLoader(
     train_dataset, batch_size=batch_size, shuffle=True)
-val_dataset = DataSet_Classification('val_dataset14.npy',
+val_dataset = DataSet_Classification(os.path.join(script_dir, 'val_dataset14.npy'),
                       sample_folder, data_augmentation=False)
 val_dataloader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
 
@@ -72,7 +71,7 @@ device = 'cuda:0'
 
 
 # Load pre-trained weights to the backbone
-backbone_state_dict = './j.pth'
+backbone_state_dict = os.path.join(script_dir, 'j.pth')
 # load_checkpoint(model.backbone, backbone_state_dict)
 tmp = torch.load(backbone_state_dict)
 # print(tmp.keys())
@@ -179,7 +178,7 @@ for epoch in range(num_epochs):
 
     if val_accuracy > val_best_acc:
         val_best_acc = val_accuracy
-        torch.save(model.state_dict(), 'model_weights.pth')
+        torch.save(model.state_dict(), os.path.join(script_dir, 'model_weights.pth'))
         print('model saved!')
 
 
