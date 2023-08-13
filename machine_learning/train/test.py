@@ -1,5 +1,4 @@
 
-# from torch.utils.tensorboard import SummaryWriter
 from tqdm import tqdm
 import torch
 import torch.nn as nn
@@ -75,7 +74,7 @@ device = 'cuda:0'
 
 
 # Load pre-trained weights to the backbone
-state_dict = './model_weights.pth'
+state_dict = os.path.join(script_dir, 'model_weights.pth')
 # load_checkpoint(model.backbone, backbone_state_dict)
 tmp = torch.load(state_dict)
 model.load_state_dict(tmp, strict=True)
